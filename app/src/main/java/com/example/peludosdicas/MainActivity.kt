@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.example.peludosdicas.databinding.ActivityMainBinding
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var googleSinInCliente: GoogleSignInClient
-    private lateinit var auth: FirebaseAuth;
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,17 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.botaoEntrar.setOnClickListener {
 
-            if (binding.editTextTextUsuario.text.isNullOrEmpty()) {
-                Toast.makeText(
-                    baseContext, "Por favor,preencha o nome de usuário",
-                    Toast.LENGTH_SHORT
-                ).show()
+            if (TextUtils.isEmpty(binding.editTextTextUsuario.text)) {
+                binding.editTextTextUsuario.error =
+                    "Campo usuário não pode estar em branco"
 
-            } else if (binding.editTextSenha.text.isNullOrEmpty()) {
-                Toast.makeText(
-                    baseContext, "Por favor,preencha a senha",
-                    Toast.LENGTH_SHORT
-                ).show()
+            } else if (TextUtils.isEmpty(binding.editTextSenha.text)) {
+                    binding.editTextSenha.error =
+                        "Campo senha não pode estar em branco"
             } else {
 
                 loginEusuarioEsenha(
@@ -60,7 +57,9 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth.currentUser
-
+                    Toast.makeText(
+                        baseContext, "autenticação efetuada.",
+                        Toast.LENGTH_SHORT).show()
                     abrePrincipal()
 
                     //updateUI(user)
@@ -76,9 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun abrePrincipal (){
-       Toast.makeText(
-           baseContext, "autenticação efetuada.",
-           Toast.LENGTH_SHORT).show()
+
        binding.editTextTextUsuario.text.clear()
        binding.editTextSenha.text.clear()
        val intent = Intent(this,PrincipalActivity::class.java)
@@ -89,7 +86,16 @@ class MainActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        //val currentUser = auth.currentUser
-        // updateUI(currentUser)
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            if (currentUser.email?.isNotEmpty() == true){
+                Toast.makeText(
+                    baseContext, "usuário "+ currentUser.email + " logado",
+                    Toast.LENGTH_SHORT
+                ).show()
+                abrePrincipal()
+            }
+        }
+        //updateUI(currentUser)
     }
 }
