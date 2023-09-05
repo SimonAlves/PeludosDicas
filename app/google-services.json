@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "179574771008",
+    "project_id": "peludosdicas",
+    "storage_bucket": "peludosdicas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179574771008:android:e7e5306e7efbce4205fea5",
+        "android_client_info": {
+          "package_name": "com.example.peludosdicas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179574771008-7nn0e9k6siovgfi5ij3snpee8iqdvaf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnpwaIYTpTUu8-wumT5nQi_wwYDKqHeXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179574771008-7nn0e9k6siovgfi5ij3snpee8iqdvaf4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
